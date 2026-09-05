@@ -1,14 +1,14 @@
 from database import get_db_session
 from cache import get_redis_connection
-from repository import DishRepository, CacheDishRepository
-from service import DishService
+from repository import DishRepository, CacheDishRepository, UserRepository
+from service import DishService, UserService, AuthService
+
+from sqlalchemy.orm import Session
 
 from fastapi import Depends
 
 
-def get_dish_repository() -> DishRepository:
-    db_session = get_db_session()
-
+def get_dish_repository(db_session: Session = Depends(get_db_session)) -> DishRepository:
     return DishRepository(db_session)
 
 
@@ -18,12 +18,26 @@ def get_cache_dish_repository() -> CacheDishRepository:
 
 
 def get_dish_service(
-        dish_repository: DishRepository = Depends(get_dish_repository),
-        dish_cache: CacheDishRepository = Depends(get_cache_dish_repository)
-    ) -> DishService:
-    
-    
+    dish_repository: DishRepository = Depends(get_dish_repository),
+    dish_cache: CacheDishRepository = Depends(get_cache_dish_repository)
+) -> DishService:
     return DishService(
         dish_repository = dish_repository, 
         dish_cache=dish_cache
     )
+
+
+def get_user_repository(db_session: Session = Depends(get_db_session)) -> UserRepository:
+    return UserRepository(db_session=db_session)
+
+
+def get_user_service(
+    user_repository: UserRepository = Depends(get_user_repository)
+) -> UserService:
+    return UserService(user_repository=user_repository)
+
+
+def get_auth_service(
+        user_repository: UserRepository = Depends(get_user_repository)
+) -> AuthService:
+    return AuthService(user_repository=user_repository)

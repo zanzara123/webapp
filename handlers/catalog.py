@@ -1,8 +1,7 @@
-from fastapi import APIRouter, HTTPException, status, Depends
+from fastapi import APIRouter, Depends
 from typing import Annotated
-from database import Dish
+# from models import Dish
 from schema.models import DishSchema
-from repository import DishRepository, CacheDishRepository
 from service import DishService
 from dependecy import get_dish_service
 

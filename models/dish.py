@@ -1,9 +1,7 @@
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column
+from database import Base
 
 
-class Base(DeclarativeBase):
-    ...
-    
 class Dish(Base):
     __tablename__ = "Dish"
 
@@ -18,4 +16,3 @@ class Category(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str]
-
