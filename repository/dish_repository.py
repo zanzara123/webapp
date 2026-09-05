@@ -1,5 +1,6 @@
 from sqlalchemy.orm import Session, sessionmaker
-from database import Dish, Category, get_db_session
+
+from models import Dish
 from schema import DishSchema
 from sqlalchemy import delete, select, update
 

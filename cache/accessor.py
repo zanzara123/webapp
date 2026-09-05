@@ -1,12 +1,11 @@
 import redis
 
-def get_redis_connection() -> redis.Redis:
-    return redis.Redis(
-        host= "localhost",
-        port=6379,
-        db=0
-    )
+from settings import Settings
 
-def set_value():
-    redis = get_redis_connection()
-    redis.set(name="цена", value=1) #ex - время жизни в секундах
+def get_redis_connection() -> redis.Redis:
+    settings = Settings()
+    return redis.Redis(
+        host = Settings.CACHER_HOST,
+        port = Settings.CACHER_PORT,
+        db   = Settings.CACHER_DB
+    )
