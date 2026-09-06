@@ -8,9 +8,12 @@ class Settings(BaseSettings):
     DB_DRIVER:   str = 'postgresql+psycopg2'
     DB_NAME:     str = 'pomodoro'
 
-    CACHER_HOST: str = 'localhost'
-    CACHER_PORT: int = 6379
-    CACHER_DB:   int = 0
+    CACHE_HOST: str = 'localhost'
+    CACHE_PORT: int = 6379
+    CACHE_DB:   int = 0
+
+    JWT_SECRET_KEY:       str = 'secret_key'
+    JWT_ENCODE_ALGORITHM: str = 'HS256'
 
     @property
     def db_url(self):

@@ -18,7 +18,6 @@ class CacheDishRepository:
 
 
 
-
     def set_dishes(self, dishes: list[DishSchema]):
         if not dishes:
             return
