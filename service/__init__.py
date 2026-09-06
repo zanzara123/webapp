@@ -1,5 +1,5 @@
-from service.serivce_dish import DishService
+from service.dish_service import DishService
 from service.user_service import UserService
-from service.auth import AuthService
+from service.auth_service import AuthService
 
 __all__ = ['DishService', 'UserService', 'AuthService']

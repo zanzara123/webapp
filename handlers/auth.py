@@ -1,15 +1,13 @@
 from typing import Annotated
-
 from fastapi import APIRouter, Depends, HTTPException
-
 from schema import UserCreateSchema, UserLoginSchema
 from service import AuthService
-
 from dependecy import get_auth_service
-
 from exception import UserNotFoundException, UserNotCorrectPasswordException
 
+
 router = APIRouter(prefix='/auth', tags=['auth'])
+
 
 @router.post('/login,', response_model=UserLoginSchema)
 async def login(
@@ -29,4 +27,4 @@ async def login(
         raise HTTPException(
                     status_code=401,
                     detail= e.detail
-                )
+        )
