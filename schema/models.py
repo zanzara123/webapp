@@ -7,5 +7,11 @@ class DishSchema(BaseModel):
     calories: int
     price: int
     category_id: int
-
+    user_id: int
     model_config = ConfigDict(from_attributes=True)
+
+class DishCreateSchema(BaseModel):
+    name: str
+    calories: int
+    price: int
+    category_id: int

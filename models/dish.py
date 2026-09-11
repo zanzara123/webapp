@@ -1,3 +1,4 @@
+from sqlalchemy import ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column
 from database import Base
 
@@ -10,6 +11,7 @@ class Dish(Base):
     calories: Mapped[int]
     price: Mapped[int]
     category_id: Mapped[int]
+    user_id: Mapped[int] = mapped_column(ForeignKey("UserProfile.id"), nullable=False)
 
 class Category(Base):
     __tablename__ = "Category"

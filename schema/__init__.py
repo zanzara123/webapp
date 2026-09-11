@@ -1,4 +1,4 @@
-from .models import DishSchema
+from .models import DishSchema, DishCreateSchema
 from .user import  UserLoginSchema, UserCreateSchema
 
-__all__ = ['DishSchema', 'UserLoginSchema', 'UserCreateSchema']
+__all__ = ['DishSchema', 'DishCreateSchema', 'UserLoginSchema', 'UserCreateSchema']

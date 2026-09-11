@@ -50,8 +50,9 @@ def get_user_service(
 reusable_oauth2= security.HTTPBearer()
 
 def get_request_user_id(
+        request: Request,
         auth_service: AuthService = Depends(get_auth_service),
-        token: security.http.HTTPAuthorizationCredentials = Security(reusable_oauth2)
+        token: security.http.HTTPAuthorizationCredentials = Security(reusable_oauth2),
 ) -> int:
     try:
         user_id = auth_service.get_user_id_from_access_token(token.credentials)

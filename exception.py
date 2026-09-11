@@ -1,7 +1,6 @@
 class UserNotFoundException(Exception):
     detail: str = "user not found"
 
-
 class UserNotCorrectPasswordException(Exception):
     detail: str = "User not correct password"
 
@@ -10,3 +9,6 @@ class TokenExpireException(Exception):
 
 class TokenNotCorrectException(Exception):
     detail: str = "token has not correct"
+
+class DishNotFound(Exception):
+    detail: str = "Dish not found"
