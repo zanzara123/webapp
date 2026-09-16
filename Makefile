@@ -9,7 +9,7 @@ MSG ?= auto_migration
 
 run:
 	python3 main.py
-	#uvicorn main:app --host $(HOST) --port $(PORT) --reload
+	#uvicorn main:app --host $(HOST) --port $(PORT) --reload --env-file .local.env
 
 migrate-create:
 	alembic revision --autogenerate -m "$(MSG)"

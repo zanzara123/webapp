@@ -40,9 +40,10 @@ class DishService:
         return DishSchema.model_validate(dish)
 
 
-    def delete_dish(self, dish_id: int, user_id: int):
+    def delete_dish(self, dish_id: int, user_id: int) -> str:
         dish = self.dish_repository.get_user_dish(dish_id=dish_id, user_id=user_id)
         if not dish:
                     raise DishNotFound
 
         self.dish_repository.delete_dish_by_index(dish_id=dish_id)
+        

@@ -10,6 +10,8 @@ from fastapi import Depends, HTTPException, Request, Security, security
 
 from exception import TokenNotCorrectException, TokenExpireException
 
+from client import GoogleClient, YandexClient
+
 
 def get_dish_repository(db_session: Session = Depends(get_db_session)) -> DishRepository:
     return DishRepository(db_session)
@@ -34,10 +36,19 @@ def get_user_repository(db_session: Session = Depends(get_db_session)) -> UserRe
     return UserRepository(db_session=db_session)
 
 
+def get_google_client() -> GoogleClient:
+    return GoogleClient(settings=Settings())
+
+def get_yandex_client() -> YandexClient:
+    return YandexClient(settings=Settings())
+    
+
 def get_auth_service(
         user_repository: UserRepository = Depends(get_user_repository),
+        google_client: GoogleClient = Depends(get_google_client),
+        yandex_client: YandexClient = Depends(get_yandex_client)
 ) -> AuthService:
-    return AuthService(user_repository=user_repository, settings = Settings())
+    return AuthService(user_repository=user_repository, settings=Settings(), google_client=google_client, yandex_client = yandex_client)
 
 
 def get_user_service(
