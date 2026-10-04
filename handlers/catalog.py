@@ -1,4 +1,6 @@
-from fastapi import APIRouter, Depends, HTTPException
+import time
+
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException
 from typing import Annotated
 # from models import Dish
 from schema.models import DishSchema, DishCreateSchema
@@ -17,7 +19,7 @@ async def get_all_dishes(
     dish_service: Annotated[DishService, Depends(get_dish_service)],
     user_id: int = Depends(get_request_user_id)
 ):
-    return dish_service.get_all_dishes()
+    return await dish_service.get_all_dishes()
 
 
 @router.post('/')
@@ -26,7 +28,7 @@ async def create_dish(
     dish_service: Annotated[DishService, Depends(get_dish_service)],
     user_id: int = Depends(get_request_user_id)
 ):
-    dish = dish_service.creat_dish(body, user_id)
+    dish = await dish_service.creat_dish(body, user_id)
     return dish
 
 
@@ -38,7 +40,7 @@ async def patch_dish(
     user_id: int = Depends(get_request_user_id),
 ):
     try:
-        return dish_service.update_dish_name(dish_id=dish_id, dish_name=dish_name, user_id=user_id)
+        return await dish_service.update_dish_name(dish_id=dish_id, dish_name=dish_name, user_id=user_id)
 
     except DishNotFound as e:
             raise HTTPException(
@@ -54,7 +56,7 @@ async def delete_dish(
     user_id: int = Depends(get_request_user_id)
 ):
     try:
-        return dish_service.delete_dish(dish_id, user_id)
+        return await dish_service.delete_dish(dish_id, user_id)
 
     except DishNotFound as e:
         raise HTTPException(

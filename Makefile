@@ -8,8 +8,7 @@ PORT ?= 8000
 MSG ?= auto_migration
 
 run:
-	python3 main.py
-	#uvicorn main:app --host $(HOST) --port $(PORT) --reload --env-file .local.env
+	uvicorn main:app --host $(HOST) --port $(PORT) --reload --env-file .local.env
 
 migrate-create:
 	alembic revision --autogenerate -m "$(MSG)"
@@ -22,4 +21,3 @@ migrate-history:
 
 migrate-downgrade:
 	alembic downgrade $(REVISION)
-

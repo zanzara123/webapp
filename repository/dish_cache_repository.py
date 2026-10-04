@@ -8,24 +8,21 @@ class CacheDishRepository:
         self.redis = redis
 
 
-    def get_all_dishes(self) -> list[DishSchema]:
-        with self.redis as redis:
-            dishes_json = redis.lrange("dish", 0, -1)
+    async def get_all_dishes(self) -> list[DishSchema]:
+        async with self.redis as redis:
+            dishes_json = await redis.lrange("dish", 0, -1)
 
-            dishes = [DishSchema.model_validate(json.loads(d)) for d in dishes_json]
-
-            return dishes
+            return [DishSchema.model_validate(json.loads(d)) for d in dishes_json]
 
 
 
-    def set_dishes(self, dishes: list[DishSchema]):
+    async def set_dishes(self, dishes: list[DishSchema]):
         if not dishes:
             return
-
-        dishes_json: list[str] = [d.model_dump_json() for d in dishes] 
-
-        with self.redis as redis:
-            redis.delete("dish")
         
-            redis.lpush("dish", *dishes_json)
+        dishes_json: list[str] = [d.model_dump_json() for d in dishes]
+
+        async with self.redis as redis:
+            await redis.delete("dish")
+            await redis.lpush("dish", *dishes_json)
 

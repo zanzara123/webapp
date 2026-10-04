@@ -16,7 +16,7 @@ async def login(
     auth_service: Annotated[AuthService, Depends(get_auth_service)]
 ):
     try:
-        return auth_service.login(body.username, body.password)
+        return await auth_service.login(body.username, body.password)
 
     except UserNotFoundException as e:
         raise HTTPException(
@@ -44,7 +44,7 @@ async def google_auth(
     auth_service: Annotated[AuthService, Depends(get_auth_service)],
     code: str
 ):
-    return auth_service.google_auth(code=code)
+    return await auth_service.google_auth(code=code)
 
 
 @router.get('/login/yandex', response_class=RedirectResponse)
@@ -61,6 +61,5 @@ async def yandex_auth(
     auth_service: Annotated[AuthService, Depends(get_auth_service)],
     code: str
 ):
-    print('\ncode: ', code)
-    return auth_service.yandex_auth(code=code)
+    return await auth_service.yandex_auth(code=code)
     
