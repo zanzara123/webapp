@@ -8,7 +8,7 @@ PORT ?= 8000
 MSG ?= auto_migration
 
 run:
-	uvicorn main:app --host $(HOST) --port $(PORT) --reload --env-file .local.env
+	gunicorn main:app -c infra/gunicorn.conf.py
 
 migrate-create:
 	alembic revision --autogenerate -m "$(MSG)"
